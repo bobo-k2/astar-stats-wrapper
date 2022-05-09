@@ -19,25 +19,25 @@ app.get('/blockdata/daily/30days', async (req, res) => {
 
 app.get('/blockdata/daily-unique/30days', async (req, res) => {
   const data = await getDailyData();
-  const native = [];
-  const evm = []
+  const native = new Map();
+  const evm = new Map();
   data.map(item => {
     item.nativeActiveUsers.map(x => {
-      if(!native.includes(x)) {
-        native.push(x);
+      if(!native.has(x)) {
+        native.set(x, 1);
       }  
     });
 
     item.evmActiveUsers.map(x => {
-      if(!evm.includes(x)) {
-        evm.push(x);
+      if(!evm.has(x)) {
+        evm.set(x, 1);
       }  
     });
   });
 
   res.send({
-    nativeUniqueCount: native.length,
-    evmUniqueCount: evm.length
+    nativeUniqueCount: native.size,
+    evmUniqueCount: evm.size
   });
 });
 

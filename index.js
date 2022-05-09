@@ -20,7 +20,7 @@ app.get('/blockdata/daily/30days', async (req, res) => {
   return res.send(csv);
 });
 
-app.get('/blockdata/monthly/30days', async (req, res) => {
+app.get('/blockdata/monthly', async (req, res) => {
   const result = await axios.post(API_URL, {
     query: 'query { monthlyCounts (last:30, orderBy:ID_ASC) { nodes { id, nativeActiveUsers, evmActiveUsers} } }'
   });

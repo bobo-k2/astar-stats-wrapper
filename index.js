@@ -10,13 +10,14 @@ app.get('/blockdata/30days', async (req, res) => {
     query: 'query { dailyCounts (last:30, orderBy:ID_ASC) { nodes { id, nativeActiveUsers, evmActiveUsers} } }'
   });
   const data = result.data.data.dailyCounts.nodes;
-  res.send(data.map(item => {
-    return {
-      id: item.id,
-      nativeActiveUsersCount: item.nativeActiveUsers.length,
-      evmActiveUsersCount: item.evmActiveUsers.length,
-    }
-  }));
+  let csv = 'Date, NativeActiveUsersCount, EVMActiveUsersCount\n';
+  data.map(item => {
+    csv += `${item.id}, ${item.nativeActiveUsers.length}, ${item.evmActiveUsers.length}` + '\n';
+  });
+
+  res.header('Content-Type', 'text/csv');
+  res.attachment('stats.csv');
+  return res.send(csv);
 })
 
 

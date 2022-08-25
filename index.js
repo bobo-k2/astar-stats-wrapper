@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-const API_URL = 'https://api.subquery.network/sq/bobo-k2/AstarStats';
+const API_URL = 'https://api.subquery.network/sq/bobo-k2/Astar-Stats';
 const app = express();
 const port = process.env.PORT || 3000;
 

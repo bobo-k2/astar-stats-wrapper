@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const functions = require('firebase-functions');
 
 const API_URL = 'https://api.subquery.network/sq/bobo-k2/Astar-Stats';
 const app = express();
@@ -74,6 +75,8 @@ const getUniqueWalletsCount = async (numberOdDays) => {
   };
 }
 
-app.listen(port, () => {
-  console.log(`The server is  listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`The server is  listening on port ${port}`)
+// });
+
+exports.app = functions.https.onRequest(app);
